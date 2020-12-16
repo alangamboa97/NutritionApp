@@ -34,9 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView notHaveAccount, mRecoverPassword;
     Button mLoginBtn;
     ProgressDialog progressDialog;
-
-    private FirebaseAuth mAuth;
-
+    // el don es puto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     loginUser(email, password);
                 }
-                
+
             }
         });
         notHaveAccount.setOnClickListener(new View.OnClickListener() {
