@@ -5,9 +5,9 @@
         <!-- Customize your theme here. -->
         <!-- This code is for changing the color of the bar. -->
         <!-- Type your colour code which you want to set in colorPrimary item -->
-        <item name="colorPrimary">#30EDF0</item>
-        <item name="colorPrimaryDark">#30EDF0</item>
-        <item name="colorAccent">#30EDF0</item>
+        <item name="colorPrimary">#045FB4</item>
+        <item name="colorPrimaryDark">#045FB4</item>
+        <item name="colorAccent">#045FB4</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
