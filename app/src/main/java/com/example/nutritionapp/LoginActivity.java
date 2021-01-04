@@ -57,12 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Entrar");
+        //actionBar.setTitle("Entrar");
+        actionBar.hide();
         //boton regresar(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#30EDF0"));
-        actionBar.setBackgroundDrawable(colorDrawable);
+        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#30EDF0"));
+        //actionBar.setBackgroundDrawable(colorDrawable);
 
 
 
