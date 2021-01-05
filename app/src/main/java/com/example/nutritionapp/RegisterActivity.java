@@ -40,12 +40,13 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         //action bar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Crear Cuenta");
+        //actionBar.setTitle("Crear Cuenta");
+        actionBar.hide();
         //boton regresar(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#30EDF0"));
-        actionBar.setBackgroundDrawable(colorDrawable);
+        //ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#30EDF0"));
+        //actionBar.setBackgroundDrawable(colorDrawable);
         nameText = findViewById(R.id.textName);
         emailText = findViewById(R.id.textEmail);
         psswdText = findViewById(R.id.textPsswd);
