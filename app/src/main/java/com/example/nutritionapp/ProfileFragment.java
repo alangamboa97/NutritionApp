@@ -74,104 +74,104 @@ public class ProfileFragment extends Fragment {
         fab = view.findViewById(R.id.fab);
         pd = new ProgressDialog(getActivity());
 
-        Query query= databaseReference.orderByChild("email").equalTo(user.getEmail());
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    String name = ""+ds.child("name").getValue();
-                    String email = ""+ds.child("email").getValue();
-                    String image = ""+ds.child("image").getValue();
-                    String cover = ""+ds.child("cover").getValue();
+            Query query= databaseReference.orderByChild("email").equalTo(user.getEmail());
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot ds: snapshot.getChildren()){
+                        String name = ""+ds.child("name").getValue();
+                        String email = ""+ds.child("email").getValue();
+                        String image = ""+ds.child("image").getValue();
+                        String cover = ""+ds.child("cover").getValue();
 
-                    nameTv.setText(name);
-                    emailTv.setText(email);
+                        nameTv.setText(name);
+                        emailTv.setText(email);
 
-                    try{
-                        Picasso.get().load(image).into(avatarIv);
-                    }catch (Exception e){
-                        Picasso.get().load(R.drawable.ic_default_img_white).into(avatarIv);
+                        try{
+                            Picasso.get().load(image).into(avatarIv);
+                        }catch (Exception e){
+                            Picasso.get().load(R.drawable.ic_default_img_white).into(avatarIv);
+                        }
+                        try{
+                            Picasso.get().load(cover).into(coverIv);
+                        }catch (Exception e){
+                        }
+
                     }
-                    try{
-                        Picasso.get().load(cover).into(coverIv);
-                    }catch (Exception e){
-                    }
 
                 }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        fab.setOnClickListener((v)->{showEditProfileDialog(); });
-
-        return view;
-    }
-
-    private boolean checkStoragePermission(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                ==(PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
-    private void requestStoragePermission(){
-        ActivityCompat.requestPermissions(getActivity(), storagePermissions, STORAGE_REQUEST_CODE);
-    }
-
-    private boolean checkCameraPermission(){
-        boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                ==(PackageManager.PERMISSION_GRANTED);
-        return result;
-    }
-
-    private void requestCameraPermission(){
-        ActivityCompat.requestPermissions(getActivity(), cameraPermissions, CAMERA_REQUEST_CODE);
-    }
-
-    private void showEditProfileDialog() {
-
-        String options[] = {"Editar Foto de Perfil", "Editar Foto de Portada", "Editar Nombre"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose Action");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which==0){
-                    pd.setMessage("Actualizando Foto de Perfil ");
-                    showImageDialog();
-                }else if (which == 1){
-                    pd.setMessage("Actualizando Foto de Portada ");
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-                else if (which==2){
-                    pd.setMessage("Actualizando Nombre ");
+            });
+            fab.setOnClickListener((v)->{showEditProfileDialog(); });
 
+            return view;
+        }
+
+            private boolean checkStoragePermission(){
+                boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        ==(PackageManager.PERMISSION_GRANTED);
+                return result;
+            }
+
+                private void requestStoragePermission(){
+                    ActivityCompat.requestPermissions(getActivity(), storagePermissions, STORAGE_REQUEST_CODE);
                 }
 
-            }
-        });
-        builder.create().show();
-    }
-
-    private void showImageDialog() {
-        String options[] = {"Cámara", "Galería"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Escoger desde");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(which==0){
-
-                }else if (which == 1){
-
+                private boolean checkCameraPermission(){
+                    boolean result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            ==(PackageManager.PERMISSION_GRANTED);
+                    return result;
                 }
 
-            }
-        });
-        builder.create().show();
+                private void requestCameraPermission(){
+                    ActivityCompat.requestPermissions(getActivity(), cameraPermissions, CAMERA_REQUEST_CODE);
+                }
 
-    }
-}
+                private void showEditProfileDialog() {
+
+                    String options[] = {"Editar Foto de Perfil", "Editar Foto de Portada", "Editar Nombre"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Choose Action");
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which==0){
+                                pd.setMessage("Actualizando Foto de Perfil ");
+                                showImageDialog();
+                            }else if (which == 1){
+                                pd.setMessage("Actualizando Foto de Portada ");
+
+                            }
+                            else if (which==2){
+                                pd.setMessage("Actualizando Nombre ");
+
+                            }
+
+                        }
+                    });
+                    builder.create().show();
+                }
+
+                private void showImageDialog() {
+                    String options[] = {"Cámara", "Galería"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Escoger desde");
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which==0){
+
+                            }else if (which == 1){
+
+                            }
+
+                        }
+                    });
+                    builder.create().show();
+
+                }
+            }
