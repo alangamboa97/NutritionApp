@@ -112,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("uid", uid);
                             hashMap.put("name", "");
                             hashMap.put("image", "");
+                            hashMap.put("cover", "");
 
                             //creacion de la base de datos de Firebase
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
