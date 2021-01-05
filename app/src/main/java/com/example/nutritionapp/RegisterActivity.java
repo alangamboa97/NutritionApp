@@ -89,9 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     private void registerUser(String nombre, String email, String psswd) {
