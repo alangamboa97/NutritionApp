@@ -30,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         actionBar.setTitle("Perfil");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#30EDF0"));
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#045FB4"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
 
