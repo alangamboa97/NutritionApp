@@ -10,6 +10,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +35,7 @@ public class PostActivity extends AppCompatActivity {
     private StorageReference mStorage;
     Uri mImageURI = null;
     private ProgressDialog mProgress;
+    private DatabaseReference mDataBase;
    
 
 
@@ -46,6 +49,8 @@ public class PostActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mStorage = FirebaseStorage.getInstance().getReference();
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Posts");
+
 
         mselectImage = (ImageButton) findViewById(R.id.imageButton);
 
@@ -85,8 +90,17 @@ public class PostActivity extends AppCompatActivity {
             filepath.putFile(mImageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
+
+                    DatabaseReference newPost = mDataBase.push();
+                    newPost.child("title").setValue(title_val);
+                    newPost.child("desc").setValue(desc_val);
+                    newPost.child("image").setValue(downloadUrl.toString());
+
+
                     mProgress.dismiss();
+
+
                 }
             });
 
