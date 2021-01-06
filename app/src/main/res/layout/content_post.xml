@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/ic_add_image"
+
         android:src="@drawable/ic_add_entry" />
 
     <EditText
@@ -37,7 +37,7 @@
         android:background="@drawable/input"
         android:layout_margin="20dp"
         android:layout_below="@id/titleEditText"
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/desciption_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
