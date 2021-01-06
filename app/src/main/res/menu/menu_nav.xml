@@ -8,6 +8,6 @@
         android:title="Home"
         android:icon="@drawable/ic_home_black"/>
     <item android:id="@+id/nav_chat"
-        android:title="Chat"
-        android:icon="@drawable/ic_chat_black"/>
+        android:title="Recetas"
+        android:icon="@drawable/ic_add_receta"/>
 </menu>

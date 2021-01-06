@@ -69,7 +69,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                         return true;
                     case R.id.nav_chat:
-                        actionBar.setTitle("Chat");
+                        actionBar.setTitle("Recetas");
                         ChatFragment fragment3 = new ChatFragment();
                         FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                         ft3.replace(R.id.content,fragment3,"");
@@ -129,6 +129,9 @@ public class DashboardActivity extends AppCompatActivity {
         if(id == R.id.action_logut){
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        if(id == R.id.action_add){
+            startActivity(new Intent(DashboardActivity.this, PostActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
