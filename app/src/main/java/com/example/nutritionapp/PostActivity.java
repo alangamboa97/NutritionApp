@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -96,10 +97,10 @@ public class PostActivity extends AppCompatActivity {
                     newPost.child("title").setValue(title_val);
                     newPost.child("desc").setValue(desc_val);
                     newPost.child("image").setValue(downloadUrl.toString());
-
+                    newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                     mProgress.dismiss();
-
+                    startActivity(new Intent(PostActivity.this, ProfileFragment.class));
 
                 }
             });
