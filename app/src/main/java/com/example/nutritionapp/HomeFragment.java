@@ -97,8 +97,9 @@ public class HomeFragment extends Fragment {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //si el input es vacio marca error
                 if(editPDFName.getText().toString().isEmpty()){
-                    editPDFName.setError("Escriba el titulo del pdf");
+                    editPDFName.setError("Escriba un título para el PDF");
                     editPDFName.setFocusable(true);
                 }
                 else{
@@ -106,11 +107,11 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 
     private void selectPDFFile() {
+        //hacemos la peticion de seleccionar un archivo pdf
         Intent intent = new Intent();
         intent.setType("application/pdf");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -120,6 +121,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //si hay algun error en la peticion de seleccionar un PDF no hace el uploadFile
         if (requestCode == 12 && resultCode == RESULT_OK
                 && data !=null && data.getData()!=null){
             uploadPDFFILE(data.getData());
@@ -127,29 +129,34 @@ public class HomeFragment extends Fragment {
     }
 
     private void uploadPDFFILE(Uri data) {
-
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Subiendo...");
         progressDialog.show();
-        
+
+        //guardamos el pdf en el storage
         StorageReference reference= storageReference.child("upload_pdf/"+System.currentTimeMillis()+".pdf");
         reference.putFile(data)
+                //funcion OnSucess
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        //obtenemos la url del archivo
                         Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                         while(!uri.isComplete());
-                        Uri url = uri.getResult();
-
+                        Uri url = uri.getResult();//obtenemos el url del archivo en el storage
+                        //instancia de la Clase uploadPDF
                         uploadPDF uploadPDF = new uploadPDF(editPDFName.getText().toString(),url.toString());
+                        //guardamos en la base de datos el nombre y la url del archivo dentro del storage
                         databaseReference.child(databaseReference.push().getKey()).setValue(uploadPDF);
+                        //mostramos mensaje de éxito
                         Toast.makeText(getActivity(),"FILE UPLOADED", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                }) //FUNCION ON PROGESS
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            //mostramos la carga del archivo
                             double progress =(100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
                             progressDialog.setMessage("UPLOADED: "+(int)progress+"%");
                     }
