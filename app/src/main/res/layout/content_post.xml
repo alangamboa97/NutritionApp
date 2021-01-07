@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ImageButton
@@ -12,19 +13,55 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
 
         android:src="@drawable/ic_add_entry" />
 
     <EditText
-        android:hint="Titulo"
+        android:hint="Semana"
         android:padding="10dp"
         android:background="@drawable/input"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/imageButton"
-        android:id="@+id/titleEditText"
+        android:id="@+id/semanaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+    <EditText
+        android:hint="Circunferencia de Brazo"
+        android:padding="10dp"
+        android:background="@drawable/input"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/semanaEditText"
+        android:id="@+id/circBrazoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+    <EditText
+        android:hint="Circunferencia de Cintura"
+        android:padding="10dp"
+        android:background="@drawable/input"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/circBrazoEditText"
+        android:id="@+id/circCinturaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+    <EditText
+        android:hint="Circunferencia de Cadera"
+        android:padding="10dp"
+        android:background="@drawable/input"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/circCinturaEditText"
+        android:id="@+id/circCaderaEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,17 +69,35 @@
         android:text="" />
 
     <EditText
-        android:hint="Descripcion"
+        android:hint="Circunferencia de Pantorrilla"
         android:padding="10dp"
         android:background="@drawable/input"
-        android:layout_margin="20dp"
-        android:layout_below="@id/titleEditText"
-        android:id="@+id/desciption_editText"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/circCaderaEditText"
+        android:id="@+id/circPantorrillaEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:inputType="textPersonName"
+        android:text="" />
+    <EditText
+        android:hint="Circunferencia de Muslo"
+        android:padding="10dp"
+        android:background="@drawable/input"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/circPantorrillaEditText"
+        android:id="@+id/circMusloEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+
+
+
+
+
 
 
 </RelativeLayout>

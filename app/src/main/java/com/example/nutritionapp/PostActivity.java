@@ -30,8 +30,12 @@ import android.widget.ImageButton;
 public class PostActivity extends AppCompatActivity {
 
     private ImageButton mselectImage;
-    private EditText mPostTitle;
-    private EditText mPostDesc;
+    private EditText mSemana;
+    private EditText mcircBrazo;
+    private EditText mcircCintura;
+    private EditText mcircCadera;
+    private EditText mcircPantorrilla;
+    private EditText mcircMuslo;
 
     private StorageReference mStorage;
     Uri mImageURI = null;
@@ -55,8 +59,12 @@ public class PostActivity extends AppCompatActivity {
 
         mselectImage = (ImageButton) findViewById(R.id.imageButton);
 
-        mPostTitle = (EditText) findViewById(R.id.titleEditText);
-        mPostDesc = (EditText) findViewById(R.id.desciption_editText);
+        mSemana = (EditText) findViewById(R.id.semanaEditText);
+        mcircBrazo = (EditText) findViewById(R.id.circBrazoEditText);
+        mcircCintura = (EditText) findViewById(R.id.circCinturaEditText);
+        mcircCadera= (EditText) findViewById(R.id.circCaderaEditText);
+        mcircPantorrilla = (EditText) findViewById(R.id.circPantorrillaEditText);
+        mcircMuslo = (EditText) findViewById(R.id.circMusloEditText);
 
         mProgress = new ProgressDialog(this);
 
@@ -82,10 +90,18 @@ public class PostActivity extends AppCompatActivity {
     private void startPosting() {
         mProgress.setMessage("Espera...");
         mProgress.show();
-        String title_val = mPostTitle.getText().toString().trim();
-        String desc_val = mPostDesc.getText().toString().trim();
+        String semana_val = mSemana.getText().toString().trim();
+        String circBrazo_val = mcircBrazo.getText().toString().trim();
+        String circCintura_val = mcircCintura.getText().toString().trim();
+        String circCadera_val = mcircCadera.getText().toString().trim();
+        String circPantorrilla_val = mcircPantorrilla.getText().toString().trim();
+        String circMuslo_val = mcircMuslo.getText().toString().trim();
 
-        if(!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val) && mImageURI !=null){
+
+        if(!TextUtils.isEmpty(semana_val) && !TextUtils.isEmpty(circBrazo_val) &&
+        !TextUtils.isEmpty(circCintura_val) && !TextUtils.isEmpty(circCadera_val) &&
+        !TextUtils.isEmpty(circPantorrilla_val) && !TextUtils.isEmpty(circMuslo_val)
+            && mImageURI !=null){
 
             StorageReference filepath = mStorage.child("Post_Image").child(mImageURI.getLastPathSegment());
             filepath.putFile(mImageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -94,8 +110,12 @@ public class PostActivity extends AppCompatActivity {
                     Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl();
 
                     DatabaseReference newPost = mDataBase.push();
-                    newPost.child("title").setValue(title_val);
-                    newPost.child("desc").setValue(desc_val);
+                    newPost.child("semana").setValue(semana_val);
+                    newPost.child("circBrazo").setValue(circBrazo_val);
+                    newPost.child("circCintura").setValue(circCintura_val);
+                    newPost.child("circCadera").setValue(circCadera_val);
+                    newPost.child("circPantorilla").setValue(circPantorrilla_val);
+                    newPost.child("circMuslo").setValue(circMuslo_val);
                     newPost.child("image").setValue(downloadUrl.toString());
                     newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 

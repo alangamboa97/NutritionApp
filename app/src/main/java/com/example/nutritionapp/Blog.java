@@ -2,5 +2,5 @@ package com.example.nutritionapp;
 
 public class Blog {
 
-    private String title;
+    private String semana, circunferenciaBrazo, circunferenciaCintura;
 }
