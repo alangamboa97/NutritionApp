@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Entrar");
-        //actionBar.hide();
+        actionBar.hide();
         //boton regresar(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);

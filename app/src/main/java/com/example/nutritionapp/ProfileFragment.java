@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -63,6 +65,9 @@ public class ProfileFragment extends Fragment {
     FloatingActionButton fab;
     ProgressDialog pd;
 
+    private RecyclerView mPostList;
+
+
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
     private static final int IMAGE_PICK_CAMERA_CODE = 300;
@@ -77,6 +82,12 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +98,10 @@ public class ProfileFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
         storageReference = storage.getReference();
+
+        mPostList = (RecyclerView) view.findViewById(R.id.post_list);
+        mPostList.setHasFixedSize(true);
+        mPostList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE};

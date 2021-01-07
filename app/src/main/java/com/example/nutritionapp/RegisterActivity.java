@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         //action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Crear Cuenta");
-        //actionBar.hide();
+        actionBar.hide();
         //boton regresar(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
