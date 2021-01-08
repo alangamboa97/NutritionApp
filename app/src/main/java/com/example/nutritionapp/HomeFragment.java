@@ -13,18 +13,27 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -75,9 +84,13 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
+    //upload - variables
     EditText editPDFName;
     Button  btn_upload;
+
+    //Download - variables
+    ListView PDFListView;
+    List<uploadPDF> uploadPDFS;
 
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -88,12 +101,80 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Variables de upload
         editPDFName = view.findViewById(R.id.textPDFName);
         btn_upload = view.findViewById(R.id.btn_upload_pdf);
 
+        //Variables dowload
+        PDFListView = view.findViewById(R.id.listViewPDF);
+        uploadPDFS = new ArrayList<>();//delcaramos el ayyarlist<>();
+
+
+        //leer achivos PDF de storage y database
+        ViewAllFiles();
+
+        PDFListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                uploadPDF uploadPDF = uploadPDFS.get(position);
+
+                Intent intent = new Intent();
+                intent.setData(Uri.parse(uploadPDF.getUrl()));
+                startActivity(intent);
+            }
+        });
+
+        //subir achivos pdf
+        Subir_PDF();
+
+        return view;
+    }
+
+
+    /*
+    * FUNCION PARA READ PDF Y DESCARGA
+    * */
+
+    private void ViewAllFiles(){
+        databaseReference =FirebaseDatabase.getInstance().getReference("upload_pdf");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot postSnapshot: snapshot.getChildren()){
+                    uploadPDF uploadPDF = postSnapshot.getValue(com.example.nutritionapp.uploadPDF.class);
+                    uploadPDFS.add(uploadPDF);
+                }
+                String[] uploads = new String[uploadPDFS.size()];
+                for(int i=0; i<uploads.length; i++){
+                    uploads[i] = uploadPDFS.get(i).getName();
+
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,uploads);
+                PDFListView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
+
+    /*
+    *
+    * FUNCIONES PARA EL UPLOAD DE ARCHIVOS PDF A LA BASE DE DATOS Y STORAGES
+    * */
+    private void Subir_PDF(){
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference("upload_pdf");
 
+        //avento para subir archivo pdf
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,9 +188,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-        return view;
     }
-
     private void selectPDFFile() {
         //hacemos la peticion de seleccionar un archivo pdf
         Intent intent = new Intent();

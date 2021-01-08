@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="23dp"
         android:hint="Nombre que le quieres poner al PDF" />
 
@@ -30,8 +30,34 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="100dp"
         android:text="Escoger Archivo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_upload_pdf"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Descargar el PDF"
+        android:textColor="@color/black"
+        android:textSize="25dp" />
+
+    <ListView
+        android:id="@+id/listViewPDF"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:cacheColorHint="@color/black"
+        android:clickable="true"
+        android:divider="@color/principal"
+        android:dividerHeight="2dp"
+        android:drawSelectorOnTop="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        android:textSize="18sp" />
 
 </RelativeLayout>
