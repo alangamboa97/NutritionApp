@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
 
         //Variables dowload
         PDFListView = view.findViewById(R.id.listViewPDF);
-        uploadPDFS = new ArrayList<>();//delcaramos el ayyarlist<>();
+        uploadPDFS = new ArrayList<>();//declaramos arraylist<>();
 
 
         //leer achivos PDF de storage y database
@@ -119,8 +119,9 @@ public class HomeFragment extends Fragment {
 
                 uploadPDF uploadPDF = uploadPDFS.get(position);
                 Intent intent = new Intent();
-                intent.setType(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(uploadPDF.getUrl()));
+                //intent.setType(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(uploadPDF.getUrl()),intent.ACTION_VIEW);
+                //intent.setData(Uri.parse(uploadPDF.getUrl()));
                 startActivity(intent);
             }
         });
