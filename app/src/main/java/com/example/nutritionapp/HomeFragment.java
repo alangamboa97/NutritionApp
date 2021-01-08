@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
                 uploadPDF uploadPDF = uploadPDFS.get(position);
                 Intent intent = new Intent();
                 //intent.setType(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(uploadPDF.getUrl()),intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(uploadPDF.getUrl()),Intent.ACTION_VIEW);
                 //intent.setData(Uri.parse(uploadPDF.getUrl()));
                 startActivity(intent);
             }
