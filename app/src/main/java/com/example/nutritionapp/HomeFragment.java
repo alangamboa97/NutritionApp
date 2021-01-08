@@ -118,11 +118,22 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 uploadPDF uploadPDF = uploadPDFS.get(position);
+
                 Intent intent = new Intent();
-                //intent.setType(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(uploadPDF.getUrl()),intent.ACTION_VIEW);
-                //intent.setData(Uri.parse(uploadPDF.getUrl()));
+                intent.setType(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(uploadPDF.getUrl());
+                if(uri.toString().contains(".pdf"))
+                {
+                    intent.setDataAndType(uri,"application/pdf");
+                }
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+
+                //Intent intent = new Intent();
+                //intent.setType(Intent.ACTION_VIEW);
+                //intent.setDataAndType(Uri.parse(uploadPDF.getUrl()),Intent.ACTION_VIEW);
+                //intent.setData(Uri.parse(uploadPDF.getUrl()));
+                //startActivity(intent);
             }
         });
 
