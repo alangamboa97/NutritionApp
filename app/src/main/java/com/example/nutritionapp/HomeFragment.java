@@ -118,8 +118,8 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 uploadPDF uploadPDF = uploadPDFS.get(position);
-
                 Intent intent = new Intent();
+                intent.setType(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(uploadPDF.getUrl()));
                 startActivity(intent);
             }
