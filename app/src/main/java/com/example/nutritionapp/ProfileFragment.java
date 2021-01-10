@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +48,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
@@ -56,12 +61,12 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference , mDataBase;
     StorageReference storageReference;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     String storagepath = "Users_Profile_Cover_Imgs/";
     ImageView avatarIv, coverIv;
-    TextView nameTv, emailTv;
+    TextView nameTv, emailTv, post_semana, post_circBrazo;
     FloatingActionButton fab;
     ProgressDialog pd;
 
@@ -73,6 +78,11 @@ public class ProfileFragment extends Fragment {
     private static final int IMAGE_PICK_CAMERA_CODE = 300;
     private static final int IMAGE_PICK_GALLERY_CODE = 400;
 
+    private FirebaseRecyclerOptions<Blog> options;
+    private  FirebaseRecyclerAdapter<Blog, ViewHolder> adapter;
+
+
+
     String cameraPermissions[];
     String storagePermissions[];
 
@@ -83,10 +93,6 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,9 +105,13 @@ public class ProfileFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference("Users");
         storageReference = storage.getReference();
 
+
+
         mPostList = (RecyclerView) view.findViewById(R.id.post_list);
         mPostList.setHasFixedSize(true);
         mPostList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDataBase = FirebaseDatabase.getInstance().getReference().child("Posts");
+
 
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -111,6 +121,33 @@ public class ProfileFragment extends Fragment {
         coverIv = view.findViewById(R.id.coverIv);
         nameTv = view.findViewById(R.id.nameTv);
         emailTv = view.findViewById(R.id.emailTv);
+        post_semana = view.findViewById(R.id.post_semana);
+        post_circBrazo = view.findViewById(R.id.post_circBrazo);
+
+
+        options = new FirebaseRecyclerOptions.Builder<Blog>().setQuery(mDataBase,Blog.class).build();
+        adapter = new FirebaseRecyclerAdapter<Blog, ViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Blog model) {
+            holder.semana.setText(""+model.getSemana());
+            holder.circBrazo.setText(""+model.getCircBrazo());
+            }
+
+            @NonNull
+            @Override
+            public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_row,parent,false);
+
+
+                return new ViewHolder(v);
+            }
+        };
+        adapter.startListening();
+        mPostList.setAdapter(adapter);
+
+
+
+
         fab = view.findViewById(R.id.fab);
         pd = new ProgressDialog(getActivity());
 
@@ -126,6 +163,9 @@ public class ProfileFragment extends Fragment {
 
                         nameTv.setText(name);
                         emailTv.setText(email);
+
+
+
 
                         try{
                             Picasso.get().load(image).into(avatarIv);
@@ -147,6 +187,29 @@ public class ProfileFragment extends Fragment {
                 }
             });
             fab.setOnClickListener((v)->{showEditProfileDialog(); });
+
+            /*
+            Query query1 = mDataBase.orderByChild("uid").equalTo(user.getUid());
+            query1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                        String semana = ""+dataSnapshot.child("semana").getValue();
+                        String circBrazo = ""+dataSnapshot.child("circBrazo").getValue();
+
+                        post_semana.setText(semana);
+                        post_circBrazo.setText(circBrazo);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            */
 
             return view;
         }
@@ -385,4 +448,8 @@ public class ProfileFragment extends Fragment {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
+
+
+
+
 }
