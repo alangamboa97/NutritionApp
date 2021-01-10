@@ -28,7 +28,7 @@
             android:text="Titulo" />
 
         <TextView
-
+            android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/post_circBrazo"
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:text="Desc" />
 
         <TextView
-
+            android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/post_circCadera"
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:text="Desc" />
 
         <TextView
-
+            android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/post_circCintura"
             android:layout_width="match_parent"
@@ -52,14 +52,14 @@
             android:text="Desc" />
 
         <TextView
-
+            android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/post_circMuslo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Desc" />
         <TextView
-
+            android:textStyle="bold"
             android:padding="10dp"
             android:id="@+id/post_circPantorilla"
             android:layout_width="match_parent"

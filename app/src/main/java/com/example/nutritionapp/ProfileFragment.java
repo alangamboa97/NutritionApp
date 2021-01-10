@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     String storagepath = "Users_Profile_Cover_Imgs/";
     ImageView avatarIv, coverIv;
-    TextView nameTv, emailTv, post_semana, post_circBrazo;
+    TextView nameTv, emailTv, post_semana, post_circBrazo, post_circCadera,post_circCintura, post_circMuslo, post_circPantorilla;
     FloatingActionButton fab;
     ProgressDialog pd;
 
@@ -122,15 +122,20 @@ public class ProfileFragment extends Fragment {
         nameTv = view.findViewById(R.id.nameTv);
         emailTv = view.findViewById(R.id.emailTv);
         post_semana = view.findViewById(R.id.post_semana);
-        post_circBrazo = view.findViewById(R.id.post_circBrazo);
+
 
 
         options = new FirebaseRecyclerOptions.Builder<Blog>().setQuery(mDataBase,Blog.class).build();
         adapter = new FirebaseRecyclerAdapter<Blog, ViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Blog model) {
-            holder.semana.setText(""+model.getSemana());
-            holder.circBrazo.setText(""+model.getCircBrazo());
+            holder.semana.setText("Semana: "+model.getSemana());
+            holder.circBrazo.setText("Circunferencia Brazo: "+model.getCircBrazo());
+            holder.circCadera.setText("Circunferencia de Cadera: " + model.getCircCadera());
+            holder.circCintura.setText("Circunferencia de Cintura: " + model.getCircCadera());
+            holder.circMuslo.setText("Circunferencia de Muslo: " + model.getCircMuslo());
+            holder.circPantorilla.setText("Circunferencia de Pantorilla: "+ model.getCircPantorrilla());
+
             }
 
             @NonNull

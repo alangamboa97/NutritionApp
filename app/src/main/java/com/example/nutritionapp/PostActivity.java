@@ -114,7 +114,7 @@ public class PostActivity extends AppCompatActivity {
                     newPost.child("circBrazo").setValue(circBrazo_val);
                     newPost.child("circCintura").setValue(circCintura_val);
                     newPost.child("circCadera").setValue(circCadera_val);
-                    newPost.child("circPantorilla").setValue(circPantorrilla_val);
+                    newPost.child("circPantorrilla").setValue(circPantorrilla_val);
                     newPost.child("circMuslo").setValue(circMuslo_val);
                     newPost.child("image").setValue(downloadUrl.toString());
                     newPost.child("uid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
